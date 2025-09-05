@@ -116,6 +116,12 @@ fun currentNavBackStackEntryAsNavBarState(
                         topTitle = { Text(stringResource(R.string.tunnels)) },
                         topTrailing = { TunnelActionBar() },
                         route = Route.Main,
+                        onMenuClick = {
+                            navController.navigate(Route.Support)
+                        },
+                        onPremiumClick = {
+                            navController.navigate(Route.Settings)
+                        }
                     )
                 }
 
@@ -328,6 +334,8 @@ fun currentNavBackStackEntryAsNavBarState(
                         route = args?.let { Route.TunnelAutoTunnel(it.id) },
                     )
                 }
+
+
 
                 else -> NavBarState(showTop = false, showBottom = false)
             }

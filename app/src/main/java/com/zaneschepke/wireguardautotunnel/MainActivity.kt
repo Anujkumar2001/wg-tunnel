@@ -262,7 +262,13 @@ class MainActivity : AppCompatActivity() {
                                         )
                                     }
                                 },
-                                topBar = { DynamicTopAppBar(navBarState) },
+                               topBar = { 
+                                   DynamicTopAppBar(
+                                navBarState = navBarState,
+                                onMenuClick = navBarState.onMenuClick,
+                                onPremiumClick = navBarState.onPremiumClick
+)
+                                },
                                bottomBar = {
                                     AnimatedVisibility(
                                         visible = navBarState.showBottom,

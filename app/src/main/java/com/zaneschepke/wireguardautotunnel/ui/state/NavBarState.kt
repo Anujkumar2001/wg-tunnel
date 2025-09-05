@@ -9,4 +9,6 @@ data class NavBarState(
     val topTitle: @Composable (() -> Unit)? = null,
     val topTrailing: @Composable (() -> Unit)? = null,
     val route: Route? = null,
+    val onMenuClick: (() -> Unit)? = null,
+    val onPremiumClick: (() -> Unit)? = null
 )
