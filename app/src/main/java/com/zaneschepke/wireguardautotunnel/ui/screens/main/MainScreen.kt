@@ -2,13 +2,19 @@ package com.zaneschepke.wireguardautotunnel.ui.screens.main
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import com.zaneschepke.wireguardautotunnel.R
@@ -32,6 +38,7 @@ import com.zaneschepke.wireguardautotunnel.viewmodel.event.AppEvent
 fun MainScreen(appUiState: AppUiState, appViewState: AppViewState, viewModel: AppViewModel) {
     val navController = LocalNavController.current
     val clipboard = rememberClipboardHelper()
+    val coroutineScope = rememberCoroutineScope()
 
     var showUrlImportDialog by remember { mutableStateOf(false) }
 
@@ -127,14 +134,28 @@ fun MainScreen(appUiState: AppUiState, appViewState: AppViewState, viewModel: Ap
         )
     }
 
-    TunnelList(
-        appUiState = appUiState,
-        selectedTunnels = appViewState.selectedTunnels,
-        onToggleTunnel = { tunnel, checked ->
-            if (checked) viewModel.handleEvent(AppEvent.StartTunnel(tunnel))
-            else viewModel.handleEvent(AppEvent.StopTunnel(tunnel))
-        },
-        modifier = Modifier.fillMaxSize().padding(vertical = 24.dp).padding(horizontal = 12.dp),
-        viewModel = viewModel,
-    )
+    Column(modifier = Modifier.fillMaxSize().padding(vertical = 24.dp).padding(horizontal = 12.dp)) {
+        val context = LocalContext.current
+        Button(
+            onClick = { 
+                coroutineScope.launch {
+                    viewModel.createTunnelFromStaticConfig(context, "static_config.conf")
+                }
+            },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+        ) {
+            Text(text = stringResource(R.string.create_static_tunnel))
+        }
+        
+        TunnelList(
+            appUiState = appUiState,
+            selectedTunnels = appViewState.selectedTunnels,
+            onToggleTunnel = { tunnel, checked ->
+                if (checked) viewModel.handleEvent(AppEvent.StartTunnel(tunnel))
+                else viewModel.handleEvent(AppEvent.StopTunnel(tunnel))
+            },
+            modifier = Modifier.fillMaxWidth(),
+            viewModel = viewModel,
+        )
+    }
 }

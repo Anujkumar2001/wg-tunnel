@@ -1,5 +1,6 @@
 package com.zaneschepke.wireguardautotunnel.viewmodel
 
+import android.content.Context
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
@@ -920,6 +921,24 @@ constructor(
                 handleShowMessage(StringValue.StringResource(R.string.error_root_denied))
                 false
             }
+        }
+    }
+    
+    /**
+     * Creates a tunnel from a static configuration file in the assets folder
+     * @param context The application context
+     * @param configFileName The name of the configuration file in the assets folder
+     */
+    suspend fun createTunnelFromStaticConfig(context: Context, configFileName: String) {
+        try {
+            val configContent = context.assets.open(configFileName).bufferedReader().use { it.readText() }
+            val amConfig = TunnelConf.configFromAmQuick(configContent)
+            val tunnelConf = TunnelConf.tunnelConfigFromAmConfig(amConfig, "Static Tunnel")
+            saveTunnelsUniquely(listOf(tunnelConf))
+            handleShowMessage(StringValue.StringResource(R.string.tunnel_created_successfully))
+        } catch (e: Exception) {
+            Timber.e(e)
+            handleShowMessage(StringValue.StringResource(R.string.error_file_format))
         }
     }
 }

@@ -263,14 +263,14 @@ class MainActivity : AppCompatActivity() {
                                     }
                                 },
                                 topBar = { DynamicTopAppBar(navBarState) },
-                                bottomBar = {
+                               bottomBar = {
                                     AnimatedVisibility(
                                         visible = navBarState.showBottom,
                                         enter = slideInVertically(initialOffsetY = { it }),
                                         exit = slideOutVertically(targetOffsetY = { it }),
-                                    ) {
+                                   ) {
                                         BottomNavbar(appUiState = appUiState)
-                                    }
+                                   }
                                 },
                             ) { padding ->
                                 Box(
@@ -290,9 +290,7 @@ class MainActivity : AppCompatActivity() {
                                         composable<Route.Main> {
                                             MainScreen(appUiState, appViewState, viewModel)
                                         }
-                                        composable<Route.Settings> {
-                                            SettingsScreen(appUiState, appViewState, viewModel)
-                                        }
+                                      
                                         composable<Route.LocationDisclosure> {
                                             LocationDisclosureScreen(viewModel)
                                         }
