@@ -20,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.zaneschepke.wireguardautotunnel.ui.state.NavBarState
 import com.zaneschepke.wireguardautotunnel.ui.theme.LockedDownBannerHeight
+import com.zaneschepke.wireguardautotunnel.ui.theme.Black
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +41,7 @@ fun DynamicTopAppBar(
                 .padding(top = LockedDownBannerHeight)
                 .fillMaxWidth()
                 .height(64.dp)
-                .background(Color.Black)
+                .background(Black)
                 .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

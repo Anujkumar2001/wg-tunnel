@@ -9,6 +9,7 @@ val Aqua = Color(0xFF76BEBD)
 val Plantation = Color(0xFF2E3538)
 val Shark = Color(0xFF21272A)
 val BalticSea = Color(0xFF1C1B1F)
+val Black = Color(0xFF0D0E12)
 
 // amoled
 val ElectricTeal = Color(0xFF4DD0E1)

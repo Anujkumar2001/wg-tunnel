@@ -76,6 +76,7 @@ import com.zaneschepke.wireguardautotunnel.ui.screens.settings.system.SystemFeat
 import com.zaneschepke.wireguardautotunnel.ui.screens.support.SupportScreen
 import com.zaneschepke.wireguardautotunnel.ui.screens.support.license.LicenseScreen
 import com.zaneschepke.wireguardautotunnel.ui.theme.AlertRed
+import com.zaneschepke.wireguardautotunnel.ui.theme.Black
 import com.zaneschepke.wireguardautotunnel.ui.theme.OffWhite
 import com.zaneschepke.wireguardautotunnel.ui.theme.WireguardAutoTunnelTheme
 import com.zaneschepke.wireguardautotunnel.util.extensions.isRunningOnTv
@@ -282,7 +283,7 @@ class MainActivity : AppCompatActivity() {
                                 Box(
                                     modifier =
                                         Modifier.fillMaxSize()
-                                            .background(MaterialTheme.colorScheme.surface)
+                                            .background(Black)
                                             .padding(padding)
                                             .consumeWindowInsets(padding)
                                             .imePadding()
